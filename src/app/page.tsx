@@ -1,9 +1,12 @@
 import React from 'react'
+import Banner from './_components/banner/Banner'
+import BookList from './_components/bookList/BookList'
 const page = () => {
   return (
-    <div>
-      <h1 className='bg-red-300'>THis is page</h1>
-    </div>
+    <>
+      <Banner/>
+      <BookList/>
+      </>
   )
 }
 export default page
