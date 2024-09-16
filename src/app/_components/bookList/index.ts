@@ -3,6 +3,7 @@ import axios from 'axios';
 export interface Book {
   _id: string;
   title: string;
+  author:string;
   user: {
     _id: string;
     name: string;
