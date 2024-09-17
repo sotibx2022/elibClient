@@ -1,7 +1,6 @@
 import path from "node:path";
 import { unlink } from "node:fs/promises";
 import cloudinary from "@/config/cloudinary";
-import { NextResponse } from "next/server";
 interface UplaodResponse{
     message:string,
     status:number,

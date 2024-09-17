@@ -21,7 +21,6 @@ const Page:React.FC<PageProps> = async (props) => {
     updatedAt,
     user
   } = singleBookDetails.singleBook;
-  const{name,email} = user;
   return (
     <div>
       <h2>{title}</h2>
@@ -31,8 +30,6 @@ const Page:React.FC<PageProps> = async (props) => {
       <p>Last Updated: {new Date(updatedAt).toLocaleDateString()}</p>
       <img src={coverImage} alt={`Cover of ${title}`} style={{ width: '200px', height: 'auto' }} />
       <p>File: <a href={file} download>Download Book</a></p>
-      <p>Posted BY : {name}</p>
-      <p>Posted BY : {email}</p>
     </div>
   );
 };

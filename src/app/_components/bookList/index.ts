@@ -1,3 +1,4 @@
+import { config } from '@/config/configuration';
 import axios from 'axios';
 // Define the type for the Book
 export interface Book {
@@ -24,7 +25,7 @@ export interface APIResponse{
 }
 export const fetchBooks = async (): Promise<APIResponse> => {
   try {
-    const response = await axios.get(`http://localhost:3000/api/book`); 
+    const response = await axios.get(`${config.WEBSITE_URL}/api/book`); 
     console.log(response.data)
     return response.data;
   } catch (error) {

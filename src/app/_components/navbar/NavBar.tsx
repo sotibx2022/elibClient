@@ -30,10 +30,10 @@ const NavBar = () => {
         </div>
         {/* Right: Login and Signup buttons */}
         <div className="space-x-4">
-          <Link href="/login">
+          <Link href="/auth/login">
             <span className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded cursor-pointer">Login</span>
           </Link>
-          <Link href="/signup">
+          <Link href="/auth/signup">
             <span className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded cursor-pointer">Signup</span>
           </Link>
         </div>
