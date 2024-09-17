@@ -10,7 +10,7 @@ export interface APIResponse{
 }
 export const registerUser = async (userData:RegisterData):Promise<APIResponse> => {
   try {
-    const response = await axios.post(`${process.env.WEBSITE_URL}/api/user/signup`, userData);
+    const response = await axios.post(`http://localhost:3000/api/user/signup`, userData);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
@@ -29,7 +29,7 @@ export const registerUser = async (userData:RegisterData):Promise<APIResponse> =
 }
 export const loginUser = async(userData:LoginData) =>{
 try {
-  const response = await axios.post(`${config.WEBSITE_URL}/api/users/login`,userData);
+  const response = await axios.post(`http://localhost:3000/api/user/login`,userData);
   return response.data;
 } catch (error) {
   if(error instanceof Error){

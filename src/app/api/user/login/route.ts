@@ -3,7 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 import { config } from "@/config/configuration";
+import { connectToDB } from "@/config/db";
 export async function POST(req:NextRequest, res:NextResponse) {
+    connectToDB()
     const { email, password } = await req.json();
     if (!email || !password) {
         return NextResponse.json({status:400,success:false,message: "Email and Password are required"});

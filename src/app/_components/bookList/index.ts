@@ -1,35 +1,10 @@
-import { config } from '@/config/configuration';
-import axios from 'axios';
-// Define the type for the Book
-export interface Book {
-  _id: string;
-  title: string;
-  author:string;
-  user: {
-    _id: string;
-    name: string;
-    email: string;
-  };
-  genre: string;
-  description: string;
-  coverImage: string;
-  file: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-}
-export interface APIResponse{
-  status:number,
-  message:string,
-  allBooks:Book[]
-}
-export const fetchBooks = async (): Promise<APIResponse> => {
-  try {
-    const response = await axios.get(`${config.WEBSITE_URL}/api/book`); 
-    console.log(response.data)
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching books:', error);
-    throw new Error('Error fetching books');
-  }
-};
+import axios from "axios";
+
+export const fetchBooks = async()=>{
+    try {
+      const response = await axios.get(process.env.API_URL!);
+      return response.data;
+    } catch (error) {
+      throw new Error("Error to Fetch Data from DB.")
+    }
+    }

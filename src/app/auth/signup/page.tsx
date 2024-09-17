@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation"
 import { registerUser } from "@/helper/mutation"
 import Link from "next/link"
 import LoadingButton from "@/app/customUI/LoadingButton"
+import QueryProvider from "@/app/provider/QueryProvider"
 const page = () => {
   const router = useRouter()
   const mutatation = useMutation(
@@ -41,7 +42,8 @@ const page = () => {
     mutatation.mutate(data);
   };
   return (
-          <section className="flex justify-center items-center h-screen">
+          <QueryProvider>
+            <section className="flex justify-center items-center h-screen">
       <Card className="mx-auto max-w-sm ">
         <CardHeader>
           <CardTitle className="text-xl">Sign Up</CardTitle>
@@ -106,6 +108,7 @@ const page = () => {
         </CardContent>
       </Card>
     </section>
+          </QueryProvider>
   );
 };
 export default page;
