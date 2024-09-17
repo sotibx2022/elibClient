@@ -1,10 +1,12 @@
 import cloudinary from "@/config/cloudinary";
+import { connectToDB } from "@/config/db";
 import { generatePublicPath } from "@/helper/generatePublicPath";
 import { uploadFile } from "@/helper/upload";
 import { authentication } from "@/middleware/authenticate";
 import { Books } from "@/model/bookModel";
 import { NextRequest, NextResponse } from "next/server";
 export async function POST(req:NextRequest, res:NextResponse){
+    connectToDB()
     try {
         const url = new URL(req.url);
     const pathSegments = url.pathname.split("/");
@@ -24,7 +26,10 @@ export async function POST(req:NextRequest, res:NextResponse){
             return NextResponse.json({ message: "Book not found", status:404, success:false });
         }
         if (pdf) {
-             pdfUrl = await uploadFile(pdf, "bookPdfs", "pdf");
+            const{secureUrl,message,success,status} = await uploadFile(pdf, "bookPdfs", "pdf");
+            if(secureUrl){
+                pdfUrl = secureUrl
+            }
             const filePublicPath = generatePublicPath(book.file);
             if (filePublicPath) {
                 try {
@@ -37,7 +42,10 @@ export async function POST(req:NextRequest, res:NextResponse){
             }
         }
         if (coverImage) {
-             imageUrl = await uploadFile(coverImage, "coverImages", "any");
+            const {secureUrl,message,success,status} = await uploadFile(coverImage, "coverImages", "any");
+            if(secureUrl){
+                imageUrl = secureUrl
+            }
             const imagePublicPath = generatePublicPath(book.coverImage);
             console.log(imagePublicPath);
             if(imagePublicPath){
@@ -75,6 +83,7 @@ if(userId !== book.user.toString()){
     }
 };
 export async function GET (req: NextRequest, res: NextResponse){
+    connectToDB()
     try {
         const url = new URL(req.url);
     const pathSegments = url.pathname.split("/");
@@ -90,6 +99,7 @@ export async function GET (req: NextRequest, res: NextResponse){
     }
 }
 export async function DELETE (req: NextRequest, res: NextResponse){
+    connectToDB()
     const url = new URL(req.url);
     const pathSegments = url.pathname.split("/");
     const bookId = pathSegments.pop();

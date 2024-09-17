@@ -1,10 +1,10 @@
-import createHttpError from 'http-errors';
 import { NextRequest, NextResponse } from 'next/server';
 import { uploadFile } from '@/helper/upload';
 import { Books } from '@/model/bookModel';
 import { authentication } from '@/middleware/authenticate';
-
+import { connectToDB } from '@/config/db';
 export async function POST (req: NextRequest, res: NextResponse) {
+    connectToDB()
     const formData = await req.formData()
     const userId = authentication(req,res)
     const title = formData.get('title');
@@ -22,16 +22,19 @@ const pdf = formData.get('pdf') as unknown as File;
         let pdfUrl: string = "";
         // Handling the 'pdf' field
         if (pdf) {
-                pdfUrl = await uploadFile(pdf, "bookPdfs", "pdf");
+                const {secureUrl, status, message,success} = await uploadFile(pdf, "bookPdfs", "pdf");
+                if(secureUrl){
+                    pdfUrl = secureUrl;
+                }
+                return NextResponse.json({status, message, success}); 
             }
-         else {
-            return NextResponse.json({status:400, message:"No PDF file found", success:false});
-        }
         // Handling the 'coverImage' field
         if (coverImage) {
-            imageUrl = await uploadFile(coverImage, "coverImages", "any");
-        } else {
-            return NextResponse.json({status:400, message:"No cover image found", success:false});
+            const {secureUrl, status, message,success} = await uploadFile(coverImage, "coverImages", "any");
+            if(secureUrl){
+                imageUrl = secureUrl;
+            }
+            return NextResponse.json({status, message, success}); 
         }
         // Create a new book entry in the database
         const newBook = await Books.create({
@@ -50,7 +53,8 @@ const pdf = formData.get('pdf') as unknown as File;
 };
 export async function GET(req:NextRequest, res:NextResponse) {
     try {
-        const allBooks = await Books.find().populate('user', 'name email');
+        await connectToDB();
+        const allBooks = await Books.find();
         return NextResponse.json({ status: 200, message: "Books Found Successfully", allBooks });
     } catch (error) {
         console.error(error); // Log the error for debugging

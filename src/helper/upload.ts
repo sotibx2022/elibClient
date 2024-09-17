@@ -1,8 +1,14 @@
 import path from "node:path";
 import { unlink } from "node:fs/promises";
-import createHttpError from "http-errors";
 import cloudinary from "@/config/cloudinary";
-export const uploadFile = async (file: File, folder: string, fileType:string) => {
+import { NextResponse } from "next/server";
+interface UplaodResponse{
+    message:string,
+    status:number,
+    success:boolean,
+    secureUrl?:string,
+}
+export const uploadFile = async (file: File, folder: string, fileType:string):Promise<UplaodResponse> => {
     const fileName = file.name;
     const filePath = path.resolve(__dirname, "../../public/assets/uploads", fileName);
     try {
@@ -17,15 +23,20 @@ export const uploadFile = async (file: File, folder: string, fileType:string) =>
             const secureUrl = uploadCoverImageResult.secure_url;
             // Delete the local file after a successful upload
             await unlink(filePath);
-            return secureUrl;
+            return {
+                message:"File Uploaded Successfully",
+                status:200, 
+                success:true,
+                secureUrl
+            };
         } else {
-            throw new createHttpError.InternalServerError("File upload failed");
+            return {message:"file Upload Failed", status:400, success:false}
         }
     } catch (error) {
         if (error instanceof Error) {
-            throw  createHttpError.InternalServerError(`Error during file upload: ${error.message}`);
+            return {message:"Error While Uploading File", success:false, status:500}
         } else {
-            throw  createHttpError(500, "Unknown error occurred");
+            throw  {status:500, message:"Unknown error occurred", success:false};
         }
     }
 };
