@@ -1,8 +1,7 @@
 import axios from "axios";
-
 export const fetchBooks = async()=>{
     try {
-      const response = await axios.get(process.env.API_URL!);
+      const response = await axios.get("http://localhost:3000/api/book");
       return response.data;
     } catch (error) {
       throw new Error("Error to Fetch Data from DB.")
