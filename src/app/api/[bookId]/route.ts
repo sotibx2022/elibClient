@@ -88,7 +88,7 @@ export async function GET (req: NextRequest, res: NextResponse){
         const url = new URL(req.url);
     const pathSegments = url.pathname.split("/");
     const bookId = pathSegments.pop();
-        const singleBook = await Books.findOne({ _id: bookId }).populate('user', 'name email');
+        const singleBook = await Books.findOne({ _id: bookId });
         if (!singleBook) {
             return NextResponse.json({status:404, message:"Book Not Found",success:false}); // Use 404 for not found
         }

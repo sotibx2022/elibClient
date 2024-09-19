@@ -4,6 +4,6 @@ export const getAllBooks = async() =>{
     return response.data.allBooks;
 }
 export const getSingleBook = async(bookId:string)=>{
-    const response = await axios.get(`http://localhost:3000/api/books/${bookId}`);
+    const response = await axios.get(`http://localhost:3000/api/${bookId}`);
     return response.data.singleBook;
 }

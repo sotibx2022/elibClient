@@ -28,7 +28,7 @@ alert(data.message)
     })
     const { data: books = [] } = useQuery({ queryFn: getAllBooks, queryKey: ['books'] });
     const editBook=(bookId:string) =>{
-router.push(`/dashboard/books/${bookId}`)
+router.push(`/dashboard/${bookId}`)
     }
     const deleteHandler =(bookId:string)=>{
       mutation.mutate(bookId)
