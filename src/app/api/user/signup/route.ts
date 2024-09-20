@@ -29,7 +29,19 @@ export async function POST(req:NextRequest, res:NextResponse) {
         const token = jwt.sign({ userId: newUser._id }, config.SECRET_KEY!, {
             expiresIn: '2h'
         });
-        return NextResponse.json({success:true, status:200, message:"User Registered Successfully !", accessToken:token });
+        const response = NextResponse.json({
+            success: true,
+            status: 200,
+            message: "User Registered Successfully!",
+            accessToken: token
+        });
+        response.cookies.set('accessToken', token, {
+            maxAge: 2 * 60 * 60, // 2 hours in seconds
+            path: '/',
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'development', // Set to true in production for HTTPS
+        });
+        return response;
     } catch (error) {
         return NextResponse.json({success:false, status:500, message:"Error to Signup user."});
     }

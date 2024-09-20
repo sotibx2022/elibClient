@@ -20,10 +20,28 @@ import {
   import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import Link from "next/link"
 import QueryProvider from "../provider/QueryProvider"
+import { useRouter } from "next/navigation"
+import axios from "axios"
 interface LayoutProps{
     children:React.ReactNode;
 }
   const layout:React.FC<LayoutProps> = ({children}) => {
+    const router = useRouter()
+    const logoutHandler = async () => {
+      try {
+          const response = await axios.get('http://localhost:3000/api/logout');
+          const result = response.data;
+          if (result.success) {
+              alert(result.message);
+              router.push('/');  // Redirect to home after logout
+          } else {
+              alert(result.message);
+          }
+      } catch (error) {
+          console.error('Error during logout:', error);
+          alert('An error occurred while logging out. Please try again.');
+      }
+  };
     return (
       <section>
           <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
@@ -116,7 +134,9 @@ interface LayoutProps{
                 <DropdownMenuItem>Settings</DropdownMenuItem>
                 <DropdownMenuItem>Support</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <span onClick={logoutHandler}>Logout</span>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </header>

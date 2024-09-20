@@ -26,8 +26,8 @@ const page = () => {
     mutationFn:loginUser,
     onSuccess:(data)=>{
       alert(data.message);
+      console.log(data.success);
       if(data.success){
-        localStorage.setItem('accessToken', data.accessToken);
         router.push('/dashboard')
       }
     },
