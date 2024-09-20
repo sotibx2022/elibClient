@@ -1,12 +1,13 @@
-import { BookCreate } from "@/app/types/types";
 import { APIResponse } from "./mutation";
+import { BookCreate } from "@/app/types/types";
 import axios from "axios";
 export const findAccessToken =() =>{
     const token = localStorage.getItem('accessToken')
     return token
 }
 // Reusable function for creating or updating a book
-export const createBook = async (data: BookCreate, bookId?: string): Promise<APIResponse> => {
+export const createBook = async (data: BookCreate): Promise<APIResponse> => {
+  let bookId = data.bookId;
   try {
     const token = findAccessToken(); // Get the access token
     // Create form data with the book information
@@ -22,7 +23,7 @@ export const createBook = async (data: BookCreate, bookId?: string): Promise<API
       formData.append('pdf', data.file[0]); // assuming this is a PDF file
     }
     // Determine the request method and URL based on whether a bookId is provided
-    const url = bookId ? `http://localhost:3000/api/books/${bookId}` : 'http://localhost:5232/api/books';
+    const url = bookId ? `http://localhost:3000/api/${bookId}` : 'http://localhost:3000/api/book';
     const method = bookId ? 'put' : 'post'; // Use 'PUT' for updating, 'POST' for creating
     // Make the request
     const response = await axios({
@@ -49,7 +50,7 @@ export const createBook = async (data: BookCreate, bookId?: string): Promise<API
 export const deleteBook = async(bookId:string):Promise<APIResponse>=>{
   try {
     const token = findAccessToken();
-    const response = await axios.delete(`http://localhost:3000/api/books/${bookId}`,{
+    const response = await axios.delete(`http://localhost:3000/api/${bookId}`,{
      headers: {
         'Authorization': `Bearer ${token}`, // Add token to Authorization header
       },

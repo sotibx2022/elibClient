@@ -14,7 +14,7 @@ import LoadingButton from "@/app/customUI/LoadingButton";
 import { useEffect } from "react";
 import { getSingleBook } from "@/helper/queryfns";
 import { useParams, useRouter } from "next/navigation";
-const AddBookPage = () => {
+const page = () => {
   const {bookId} = useParams();
   const router = useRouter();
   const { register, setValue, formState: { errors }, handleSubmit } = useForm<BookCreate>();
@@ -38,7 +38,7 @@ const AddBookPage = () => {
   }, [singleBook]);
   // Create or Update mutation
   const mutation = useMutation({
-    mutationFn: createBook,
+    mutationFn:createBook,
     onSuccess: (data) => {
       alert(data.message);
       router.push('/dashboard/books');
@@ -53,8 +53,11 @@ const AddBookPage = () => {
   });
   // Form submission handler
   const onSubmit = (data: BookCreate) => {
-    // Add bookId to the payload if needed
-    mutation.mutate({ ...data, bookId: Array.isArray(bookId) ? bookId[0] : bookId });
+    const dataToSend = { 
+        ...data, 
+        bookId: Array.isArray(bookId) ? bookId[0] : bookId // Handles bookId if it's an array or not
+    };
+    mutation.mutate(dataToSend);
 };
   // If the book data is loading, show a loading state
   if (isBookLoading && bookId) {
@@ -122,4 +125,4 @@ const AddBookPage = () => {
     </div>
   );
 };
-export default AddBookPage;
+export default page;

@@ -14,7 +14,8 @@ export interface BookCreate{
     author:string,
     genre:string,
     coverImage:FileList,
-    file:FileList
+    file:FileList,
+    bookId:string,
 }
 export interface User{
     name:string,

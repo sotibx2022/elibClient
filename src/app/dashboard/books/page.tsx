@@ -7,7 +7,7 @@ import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } 
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { BookDisplay } from "@/app/types/types"
 import { getAllBooks } from "@/helper/queryfns"
 import { formatDate } from "@/helper/formatDate"
@@ -16,17 +16,19 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import QueryProvider from "@/app/provider/QueryProvider"
   const page = () =>{
+    const { data: books = [] } = useQuery({ queryFn: getAllBooks, queryKey: ['books'] });
+    const queryClient = useQueryClient();
     const router = useRouter();
     const mutation= useMutation({
       mutationFn:deleteBook,
       onSuccess:(data)=>{
 alert(data.message)
+queryClient.invalidateQueries({queryKey:['books']});
       },
       onError:(error)=>{
         alert("Error Occured to delete a book.");
       }
     })
-    const { data: books = [] } = useQuery({ queryFn: getAllBooks, queryKey: ['books'] });
     const editBook=(bookId:string) =>{
 router.push(`/dashboard/${bookId}`)
     }
@@ -85,7 +87,7 @@ router.push(`/dashboard/${bookId}`)
                     Export
                   </span>
                 </Button>
-                <Link href='/dashboard/books/add'>
+                <Link href='/dashboard/addBook'>
                 <Button size="sm" className="h-8 gap-1">
                   <PlusCircle className="h-3.5 w-3.5" />
                   <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">

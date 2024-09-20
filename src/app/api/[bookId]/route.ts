@@ -5,65 +5,70 @@ import { uploadFile } from "@/helper/upload";
 import { authentication } from "@/middleware/authenticate";
 import { Books } from "@/model/bookModel";
 import { NextRequest, NextResponse } from "next/server";
-export async function POST(req:NextRequest, res:NextResponse){
-    connectToDB()
+export async function PUT(req: NextRequest, res: NextResponse) {
+    connectToDB(); // Ensure this returns a Promise or it's awaited if asynchronous.
     try {
+        // Extracting bookId from URL
         const url = new URL(req.url);
-    const pathSegments = url.pathname.split("/");
-    const bookId = pathSegments.pop();
-        const formData = await req.formData()
-        const userId = authentication(req,res)
+        const pathSegments = url.pathname.split("/");
+        const bookId = pathSegments.pop();
+        // Fetching formData
+        const formData = await req.formData();
+        // Authenticate the user
+        const userId = authentication(req, res);
+        // Extracting form fields
         const title = formData.get('title');
-    const description = formData.get('description');
-    const author = formData.get('author');
-    const genre = formData.get('genre');
-    const coverImage = formData.get('coverImage') as unknown as File;
-    const pdf = formData.get('pdf') as unknown as File;
-    let pdfUrl= "";
-    let imageUrl = "";
+        const description = formData.get('description');
+        const author = formData.get('author');
+        const genre = formData.get('genre');
+        const coverImage = formData.get('coverImage') as unknown as File;
+        const pdf = formData.get('pdf') as unknown as File;
+        let pdfUrl = "";
+        let imageUrl = "";
+        // Fetch existing book by ID
         const book = await Books.findById(bookId);
         if (!book) {
-            return NextResponse.json({ message: "Book not found", status:404, success:false });
+            return NextResponse.json({ message: "Book not found", status: 404, success: false });
         }
+        // Handle PDF upload if available
         if (pdf) {
-            const{secureUrl,message,success,status} = await uploadFile(pdf, "bookPdfs", "pdf");
-            if(secureUrl){
-                pdfUrl = secureUrl
+            const { secureUrl, message, success, status } = await uploadFile(pdf, "bookPdfs", "pdf");
+            if (secureUrl) {
+                pdfUrl = secureUrl;
             }
             const filePublicPath = generatePublicPath(book.file);
             if (filePublicPath) {
                 try {
                     const result = await cloudinary.uploader.destroy(filePublicPath, {
-                        resource_type: 'raw' 
+                        resource_type: 'raw'
                     });
                 } catch (error) {
-                    console.error('Error deleting file:', error);
                 }
             }
         }
+        // Handle cover image upload if available
         if (coverImage) {
-            const {secureUrl,message,success,status} = await uploadFile(coverImage, "coverImages", "any");
-            if(secureUrl){
-                imageUrl = secureUrl
+            const { secureUrl, message, success, status } = await uploadFile(coverImage, "coverImages", "any");
+            if (secureUrl) {
+                imageUrl = secureUrl;
             }
             const imagePublicPath = generatePublicPath(book.coverImage);
-            console.log(imagePublicPath);
-            if(imagePublicPath){
+            if (imagePublicPath) {
                 try {
-                    const result = await cloudinary.uploader.destroy(imagePublicPath);  
+                    const result = await cloudinary.uploader.destroy(imagePublicPath);
                 } catch (error) {
                     if (error instanceof Error) {
-                        console.error(error.message);
+                        console.error("Error deleting cover image:", error.message);
                     } else {
-                        console.error("Unknown error occurred while deleting the file");
+                        console.error("Unknown error occurred while deleting the cover image");
                     }
                 }
             }
         }
-        // Fetch existing book details
-if(userId !== book.user.toString()){
-    return NextResponse.json({status:401,message:"User Not autorized", success:false})
-}
+        // Check user authorization
+        if (userId !== book.user.toString()) {
+            return NextResponse.json({ status: 401, message: "User Not authorized", success: false });
+        }
         // Update the book with the new or existing values
         const updatedBook = await Books.findOneAndUpdate(
             { _id: bookId },
@@ -77,11 +82,11 @@ if(userId !== book.user.toString()){
             },
             { new: true }
         );
-        return NextResponse.json({message:"Book Updated Successfully", status:200, success:true});
+        return NextResponse.json({ message: "Book Updated Successfully", status: 200, success: true });
     } catch (error) {
-        return NextResponse.json({message:"Error To Update Book", success:false,status:500})
+        return NextResponse.json({ message: "Error To Update Book", success: false, status: 500 });
     }
-};
+}
 export async function GET (req: NextRequest, res: NextResponse){
     connectToDB()
     try {
