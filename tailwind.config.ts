@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-
 const config: Config = {
     darkMode: ["class"],
     content: [
@@ -9,53 +8,33 @@ const config: Config = {
   ],
   theme: {
   	extend: {
-  		colors: {
-  			background: 'hsl(var(--background))',
-  			foreground: 'hsl(var(--foreground))',
-  			card: {
-  				DEFAULT: 'hsl(var(--card))',
-  				foreground: 'hsl(var(--card-foreground))'
-  			},
-  			popover: {
-  				DEFAULT: 'hsl(var(--popover))',
-  				foreground: 'hsl(var(--popover-foreground))'
-  			},
-  			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
-  				foreground: 'hsl(var(--primary-foreground))'
-  			},
-  			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))',
-  				foreground: 'hsl(var(--secondary-foreground))'
-  			},
-  			muted: {
-  				DEFAULT: 'hsl(var(--muted))',
-  				foreground: 'hsl(var(--muted-foreground))'
-  			},
-  			accent: {
-  				DEFAULT: 'hsl(var(--accent))',
-  				foreground: 'hsl(var(--accent-foreground))'
-  			},
-  			destructive: {
-  				DEFAULT: 'hsl(var(--destructive))',
-  				foreground: 'hsl(var(--destructive-foreground))'
-  			},
-  			border: 'hsl(var(--border))',
-  			input: 'hsl(var(--input))',
-  			ring: 'hsl(var(--ring))',
-  			chart: {
-  				'1': 'hsl(var(--chart-1))',
-  				'2': 'hsl(var(--chart-2))',
-  				'3': 'hsl(var(--chart-3))',
-  				'4': 'hsl(var(--chart-4))',
-  				'5': 'hsl(var(--chart-5))'
-  			}
-  		},
+  		colors:{
+			primaryDark:'#275258',
+			primaryLight:'#22908d',
+			background:'#d3d3d3',
+			helper:'#d22c67'
+		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		  backgroundImage: {
+			// Linear Gradient
+			'PrimaryGradient': 'linear-gradient(90deg, #275258 0%, #22908d 100%)',
+			// Gradient with opacity (adjusting opacity through RGBA or Tailwind utilities)
+			'PrimaryGradientOpacity': 'linear-gradient(90deg, rgba(39, 82, 88, 0.8) 0%, rgba(34, 144, 141, 0.8) 100%)',
+		  },
+		  boxShadow: {
+			// Custom shadow with primaryDark color
+			'primaryDark': '0 4px 6px rgba(39, 82, 88, 0.4)',
+			// Custom shadow with primaryLight color
+			'primaryLight': '0 4px 6px rgba(34, 144, 141, 0.3)',
+			// Custom shadow with helper color
+			'helper': '0 4px 6px rgba(210, 44, 103, 0.4)',
+			// Custom shadow with background color
+			'background': '0 4px 6px rgba(211, 211, 211, 0.5)',
+		  },
   	}
   },
   plugins: [require("tailwindcss-animate")],

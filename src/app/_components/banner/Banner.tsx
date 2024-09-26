@@ -67,11 +67,10 @@ const Banner = () => {
     spaceBetween={50}
     slidesPerView={1}
     navigation // Enable navigation for the arrows to work
-    pagination={{ clickable: true }}
     scrollbar={{ draggable: true }}
     onSlideChange={handleSlideChange}
     autoplay={{ delay: 3000, disableOnInteraction: false }}
-    className="h-auto max-h-[90vh] w-full"
+    className="h-auto max-h-[100vh] w-full"
   >
     {slidesData.map((slide, index) => (
       <SwiperSlide key={index}>
