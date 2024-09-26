@@ -2,20 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 :root {
-  --primary: #22908d;
-  --primaryDark: #275258;
-  --background: #d3d3d3;
-  --helper: #d22c67;
+  --primary: #876061;
+  --primaryDark: #531c1d;
+  --background: #fbf4d5;
+  --helper: #fcae04;
+  --radius: 8px;
+  --gradientwithOpacity: linear-gradient(
+    90deg,
+    rgba(135, 96, 97, 0.8) 0%, /* rgba version of --primary with opacity */
+    rgba(83, 28, 29, 0.8) 100% /* rgba version of --primaryDark with opacity */
+  );
 }
 body,
 html {
-  background-color: var(--primaryLight);
+  background-color: var(--background);
   margin: 0;
   padding: 0;
   font-family: "Roboto", sans-serif;
   font-weight: 500;
   box-sizing: border-box;
   overflow-x: hidden;
+  height: 100%;
+}
+.slideOverlay {
+  background: var(--gradientwithOpacity);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
 }
 .primaryParagraph{
@@ -43,10 +57,10 @@ html {
 }
 /* Reusable Primary Button Class */
 .primaryButton {
-  @apply bg-primaryDark text-primaryLight border-2 border-primaryDark px-4 py-2 rounded-md cursor-pointer transition-colors duration-300 flex justify-center items-center max-w-xs max-h-12;
+  @apply bg-primaryDark text-white  border-2 border-primaryDark px-4 py-2 rounded-md cursor-pointer transition-colors duration-300 flex justify-center items-center max-w-xs max-h-12;
 }
 .primaryButton:hover {
-  @apply bg-primaryLight text-primaryDark;
+  @apply bg-background border-2 border-primaryDark text-primaryDark;
 }
 /* Reusable Secondary Button Class */
 .secondaryButton {
@@ -58,8 +72,11 @@ html {
 .flex-center{
   @apply flex justify-center items-center;
 }
+.flex-between{
+  @apply flex justify-between items-center;
+}
 .container{
-  @apply max-w-[90vw] mx-auto p-10;
+  @apply max-w-[90vw] mx-auto;
 }
 .link{
   @apply text-blue-600 underline text-lg transition-colors duration-300;
@@ -72,4 +89,12 @@ html {
 }
 .successMessage{
   @apply text-lg text-green-600;
+}
+.formItem input[type='text']{
+  @apply bg-background outline-none border-2 border-primaryDark rounded-lg p-2;
+}
+/* -----------Banner------------ */
+.swiper-button-next,
+.swiper-button-prev {
+ color: var(--background) !important;;
 }
