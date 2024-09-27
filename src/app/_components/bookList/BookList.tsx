@@ -2,6 +2,7 @@ import React from 'react'
 import SingleBook from '../singleBook/SingleBook'
 import { fetchBooks } from '.';
 import { BookDisplay } from '@/app/types/types';
+import Link from 'next/link';
 interface APIResponse{
   message:string,
   success:boolean,
@@ -14,11 +15,17 @@ const BookList = async() => {
     return <h1>No Books Found</h1>
   }
   return (
-    <div className='flex justify-between flex-wrap'>
-      {result && result.allBooks.map((book:BookDisplay) => (
+  <section className='container'>
+    <h2 className='subHeading'>Popular Books</h2>
+    <div className=' flex justify-between flex-wrap'>
+      {result && result.allBooks.splice(0,6).map((book:BookDisplay) => (
         <SingleBook key={book._id} {...book} />
       ))}
     </div>
+    <div className=' w-full flex justify-end'>
+    <Link href="/books" className='link'>Check All Books</Link>
+    </div>
+    </section>
   )
 }
 export default BookList;

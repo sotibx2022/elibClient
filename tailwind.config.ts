@@ -20,7 +20,7 @@ const config: Config = {
                 md: 'calc(var(--radius) - 2px)',
                 sm: 'calc(var(--radius) - 4px)',
             },
-			background: {
+			backgroundImage: {
 				// Linear Gradient using defined colors
 				'primaryGradient': 'linear-gradient(90deg, var(--primaryDark) 0%, var(--primaryLight) 100%)',
 				// Gradient with opacity using defined colors

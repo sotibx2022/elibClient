@@ -15,7 +15,7 @@ const HeroLayout = () => {
     };
   }, []);
   return (
-      <div className={`heroLayout ${screenWidth > 1000 ? 'relative' : ''}`}>
+      <div>
         <Banner />
         <BookCaurosel />
       </div>

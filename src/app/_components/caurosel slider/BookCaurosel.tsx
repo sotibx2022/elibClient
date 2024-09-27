@@ -11,6 +11,8 @@ import { getAllBooks } from "@/helper/queryfns";
 import { BookDisplay } from "../bookList/types";
 import Link from "next/link";
 import gsap from 'gsap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { Swiper as SwiperType } from "swiper/types";
 const BookCarousel = () => {
   const { data: books = [] } = useQuery({
@@ -39,7 +41,7 @@ const BookCarousel = () => {
   }, []);
   const showBookDetails = (event: React.MouseEvent<HTMLButtonElement>) => {
     const parent = event.currentTarget.closest('.slideItem');
-    const overlay = parent?.querySelector('.swiperItemOverlay');
+    const overlay = parent?.querySelector('.slideOverlay');
     if (overlay) {
       gsap.to(overlay, {
         top: "0%",
@@ -49,7 +51,7 @@ const BookCarousel = () => {
   };
   const hideBookDetails = (event: React.MouseEvent<HTMLButtonElement>) => {
     const parent = event.currentTarget.closest('.slideItem');
-    const overlay = parent?.querySelector('.swiperItemOverlay');
+    const overlay = parent?.querySelector('.slideOverlay');
     if (overlay) {
       gsap.to(overlay, {
         top: "100%",
@@ -60,9 +62,9 @@ const BookCarousel = () => {
   const totalWidth = findTotalWidth()
   return (
 <section
-  className={`w-[80vw] h-[200px] ${totalWidth > 1000 ? 'absolute z-10 top-[60vh] left-[50%] transform -translate-x-[50%]' : ''}`}>
+  className="container" >
       <div className="sectionHeading">
-        <h2 className="text-5xl py-2">Recent Uploads</h2>
+        <h2 className=" subHeading">Recent Uploads</h2>
       </div>
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]} 
@@ -74,14 +76,17 @@ const BookCarousel = () => {
         {books.map((book: BookDisplay) => (
           <SwiperSlide className="w-[250px] slideItem relative h-full" key={book._id}>
               <img src={book.coverImage} alt={book.title} className="object-cover rounded-lg mb-4 w-full h-full" />
-              <button className="absolute bottom-0 left-1/2 text-5xl text-red-500" onClick={showBookDetails}>^</button>
-              <div className="swiperItemOverlay absolute top-[100%] overflow-hidden left-0 w-full h-full bg-gradient-to-t from-[rgba(148,163,184,0)] via-[rgba(139,92,246,0.75)] to-[rgba(100,116,139,0.90)]">
-                <button className="absolute bottom-0 left-1/2 text-5xl text-white" onClick={hideBookDetails}>^</button>
-                <h2 className="text-xl font-bold mb-2">{book.title}</h2>
-                <p className="text-gray-600 mb-2">by {book.user.name}</p>
-                <p className="text-gray-500 mb-4">{book.genre}</p>
+              <button className="absolute bottom-0 left-1/2 text-2xl text-white bg-helper py-1 px-2" onClick={showBookDetails}> 
+              <FontAwesomeIcon icon={faArrowUp} />
+              </button>
+              <div className="slideOverlay absolute top-[100%] overflow-hidden left-0 flex flex-col pl-4 pt-8 justify-center items-start">
+                <button className="absolute top-0 left-1/2 text-2xl text-white bg-helper py-1 px-2" onClick={hideBookDetails}>
+                <FontAwesomeIcon icon={faArrowDown} />
+                </button>
+                <h2 className="text-3xl text-white mb-2">{book.title}</h2>
+                <p className="text-white">Genre : {book.genre}</p>
                 <Link href={`/${book._id}`}>
-                  <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                  <button className="link">
                     Read More
                   </button>
                 </Link>

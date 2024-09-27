@@ -76,7 +76,7 @@ const Banner = () => {
       <SwiperSlide key={index}>
         <div className="slideImage relative">
           <Image src={slide.image} alt={`slider${index + 1}`} className="object-cover" />
-          <div className="slideOverlay">
+          <div className="slideOverlay top-0 left-0">
             <div className="absolute top-[10px] left-[10px] w-full p-4 text-white">
               <div className="sliderTitle w-full  md:h-[3rem] h-[2rem] overflow-hidden">
                 <h2 className="text-2xl sm:text-3xl md:text-5xl z-10 uppercase title1 font-extrabold">{slide.title}</h2>
