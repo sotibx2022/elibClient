@@ -10,11 +10,14 @@ import { validateBookTitle, validateDescription, validateFile, validateFullName 
 import { validateFirstName } from "@/helper/validation";
 import { QueryClient, QueryClientProvider, useMutation, useQuery } from "@tanstack/react-query";
 import { createBook} from "@/helper/bookMutation"; // Assuming you have updateBook mutation too
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getSingleBook } from "@/helper/queryfns";
 import LoadingButton from "@/app/customUI/LoadingButton";
 import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
+import TextEditor from "@/app/_components/textEditor/TextEditor";
 const page = () => {
+  const[showTextEditor, setShowTextEditor] = useState(false);
   const { bookId } = useParams();
   const router = useRouter();
   const { register, formState: { errors }, handleSubmit } = useForm<BookCreate>();
@@ -37,6 +40,12 @@ const page = () => {
   const onSubmit = (data: BookCreate) => {
     mutation.mutate(data);
   };
+  const openTextEditor =() =>{
+    setShowTextEditor(true)
+  }
+  const receivedDisplayValue =(value:boolean) =>{
+    setShowTextEditor(value);
+  }
   return (
     <section>
       <Card>
@@ -89,6 +98,9 @@ const page = () => {
               <Input id="file" type="file" {...register("file", validateFile())} />
               {errors.file && <p className="text-red-500 text-sm">{errors.file.message}</p>}
             </div>
+            or
+            <span onClick={openTextEditor}>Create Book PDF</span>
+            {showTextEditor && <TextEditor displayValue={receivedDisplayValue}/>}
             {/* Submit Button */}
             <Button type="submit" disabled={mutation.isPending}>
               {mutation.isPending ? <LoadingButton /> : bookId ? "Update" : "Submit"}
