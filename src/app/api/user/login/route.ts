@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
             accessToken: token
         });
         response.cookies.set('accessToken', token, {
-            maxAge: 2 * 60 * 60, // 2 hours in seconds
+            maxAge: 2 * 60 * 60*1000, // 2 hours in seconds
             path: '/',
             httpOnly: true,
         });

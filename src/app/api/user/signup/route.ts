@@ -36,7 +36,7 @@ export async function POST(req:NextRequest, res:NextResponse) {
             accessToken: token
         });
         response.cookies.set('accessToken', token, {
-            maxAge: 2 * 60 * 60, // 2 hours in seconds
+            maxAge: 2 * 60 * 60*1000, 
             path: '/',
             httpOnly: true,
             secure: process.env.NODE_ENV === 'development', // Set to true in production for HTTPS
