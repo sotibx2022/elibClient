@@ -18,9 +18,10 @@ import Link from "next/link";
 import TextEditor from "@/app/_components/textEditor/TextEditor";
 const page = () => {
   const[showTextEditor, setShowTextEditor] = useState(false);
+  const[file,setFile] = useState<File |null>(null)
   const { bookId } = useParams();
   const router = useRouter();
-  const { register, formState: { errors }, handleSubmit } = useForm<BookCreate>();
+  const { register,setValue, formState: { errors }, handleSubmit } = useForm<BookCreate>();
   // Create mutation
   const mutation = useMutation({
     mutationFn: createBook,
@@ -46,6 +47,15 @@ const page = () => {
   const receivedDisplayValue =(value:boolean) =>{
     setShowTextEditor(value);
   }
+  const receivedFileFromEditor = (file: File) => {
+    setFile(file);
+    // Convert the file into a FileList using DataTransfer
+    const dataTransfer = new DataTransfer();
+    dataTransfer.items.add(file);
+    console.log(file);
+    // Set the value of the file input as a FileList
+    setValue('file', dataTransfer.files);
+  };
   return (
     <section>
       <Card>
@@ -93,14 +103,31 @@ const page = () => {
               {errors.coverImage && <p className="text-red-500 text-sm">{errors.coverImage.message}</p>}
             </div>
             {/* PDF File */}
-            <div className="mb-4">
-              <Label htmlFor="file">Upload PDF</Label>
-              <Input id="file" type="file" {...register("file", validateFile())} />
-              {errors.file && <p className="text-red-500 text-sm">{errors.file.message}</p>}
-            </div>
+            {file ? (
+        <div className="file-info">
+          <p>Selected File: {file.name}</p>
+        </div>
+      ) : (
+        <div className="mb-4">
+          <label htmlFor="file">Upload PDF</label>
+          <input
+            id="file"
+            type="file"
+            {...register('file', { required: 'A file is required' })}
+            // Optional: Add an onChange to capture file selection if needed
+            onChange={(e) => {
+              const selectedFile = e.target.files?.[0];
+              if (selectedFile) {
+                receivedFileFromEditor(selectedFile);
+              }
+            }}
+          />
+          {errors.file && <p className="text-red-500 text-sm">{errors.file.message}</p>}
+        </div>
+      )}
             or
             <span onClick={openTextEditor}>Create Book PDF</span>
-            {showTextEditor && <TextEditor displayValue={receivedDisplayValue}/>}
+            {showTextEditor && <TextEditor displayValue={receivedDisplayValue} onPublish={receivedFileFromEditor}/>}
             {/* Submit Button */}
             <Button type="submit" disabled={mutation.isPending}>
               {mutation.isPending ? <LoadingButton /> : bookId ? "Update" : "Submit"}
