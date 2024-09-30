@@ -6,10 +6,8 @@ import HeroLayout from './_components/heroLayout/HeroLayout'
 const page = () => {
   return (
     <div>
-      <NavBar/>
       <HeroLayout/>
       <BookList/>
-      <Footer/>
     </div>
   )
 }

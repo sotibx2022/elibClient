@@ -1,18 +1,36 @@
-export interface User {
-    _id: string;
-    name: string;
-    email: string;
-  }
-  
-  export interface Book {
-    _id: string;
-    title: string;
-    user: User;
-    genre: string;
-    description: string;
-    coverImage: string;
-    file: string;
-    createdAt: string;
-    updatedAt: string;
-    __v: number;
-  }
+export interface RegisterData{
+  firstName:string,
+  lastName:string,
+  email:string,
+  password:string,
+}
+export interface LoginData{
+  email:string,
+  password:string
+}
+export interface BookCreate{
+  title:string,
+  description:string,
+  author:string,
+  genre:string,
+  coverImage:FileList,
+  file:FileList
+  bookId:string,
+}
+export interface User{
+  name:string,
+  email:string,
+  _id:string,
+}
+export interface BookDisplay{
+  title:string,
+  description:string,
+  author:string,
+  genre:string,
+  coverImage:string,
+  file?:string,
+  user?:User,
+  createdAt?:string,
+  updatedAt?:string,
+  _id:string,
+}

@@ -15,9 +15,14 @@ const PrimaryHeader = () => {
         <div className="flex-between w-[60%]">
       {links.map((link, index) => (
         <Link key={index} href={link.href}>
+          <div className='flex flex-col h-[1.5rem]'>
           <span className="text-white hover:text-primaryLight cursor-pointer">
             {link.text}
           </span>
+          <span className="text-white hover:text-primaryLight cursor-pointer">
+            {link.text}
+          </span>
+          </div>
         </Link>
       ))}
     </div>
