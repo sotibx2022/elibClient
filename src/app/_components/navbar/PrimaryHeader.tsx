@@ -1,3 +1,4 @@
+"use client"
 const links = [
   { href: "/", text: "Home" },
   { href: "/categories", text: "Categories" },
@@ -6,24 +7,15 @@ const links = [
   { href: "/contact", text: "Contact Us" },
 ];
 import Link from 'next/link'
-import { usePathname } from 'next/navigation';
-import React from 'react'
-const PrimaryHeader = () => {
+import React from 'react';
+import LinkComponent from '../link/LinkComponent';
+const PrimaryHeader =() =>{
   return (
       <div className="wrapper bg-primaryDark">
         <nav className="container py-1 flex justify-between items-center">
         <div className="flex-between w-[60%]">
       {links.map((link, index) => (
-        <Link key={index} href={link.href}>
-          <div className='flex flex-col h-[1.5rem]'>
-          <span className="text-white hover:text-primaryLight cursor-pointer">
-            {link.text}
-          </span>
-          <span className="text-white hover:text-primaryLight cursor-pointer">
-            {link.text}
-          </span>
-          </div>
-        </Link>
+        <LinkComponent  key={index} href={link.href} text={link.text}/>
       ))}
     </div>
         <div className="flex justify-end w-[20%]">

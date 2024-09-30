@@ -3,7 +3,6 @@ import { BookCreate } from "@/app/types/types";
 import axios from "axios";
 export const findAccessToken =() =>{
     const token = localStorage.getItem('accessToken')
-    console.log(token);
     return token
 }
 // Reusable function for creating or updating a book
