@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
+import LinkComponent from '../link/LinkComponent';
 const SecondaryHeader = () => {
   const items = [
     { name: 'HTML', href: '/html' },
@@ -15,8 +16,8 @@ const SecondaryHeader = () => {
     <div className='border-2 border-t-primaryDark border-b-primaryDark py-1'>
       <ul className='flex-between container'>
         {items.map((item, index) => (
-          <li key={index} className="secondaryHeading uppercase font-bold">
-            <Link href={item.href}>{item.name}</Link>
+          <li key={index} className="secondaryHeading uppercase font-bold text-primaryDark">
+            <LinkComponent href={item.href} text={item.name}/>
           </li>
         ))}
       </ul>

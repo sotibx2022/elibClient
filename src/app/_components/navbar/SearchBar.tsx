@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 const SearchBar = () => {
   return (
@@ -11,7 +12,9 @@ const SearchBar = () => {
         id="searchInput" 
         placeholder='Book Name, Author, Keyword...'
       />
-      <button type="submit" className="primaryButton">Search</button>
+    <button className='p-4 text-white bg-primaryDark relative'>
+      <span className='absolute top-0 left-0 bg-primaryDark hover:-top-2 hover:-left-2'>Search</span>
+    </button>
     </div>
   </div>
   )

@@ -52,13 +52,23 @@ html {
  background-color: var(--helper);
 }
 /* Reusable Primary Button Class */
-.primaryButton {
-  @apply bg-primaryDark text-white  border-2 border-primaryDark px-4 py-2 rounded-md cursor-pointer transition-colors duration-300 flex justify-center items-center max-w-xs max-h-12;
-}
-.primaryButton:hover {
-  @apply bg-background border-2 border-primaryDark text-primaryDark;
-}
 /* Reusable Secondary Button Class */
+.primaryButton{
+  transition: 0.5 all;
+}
+.buttonText{
+  background-color: var(--primaryDark);
+  color: white;
+  text-transform: capitalize;
+  font-size: 1.5rem;
+}
+.primaryButton:hover .buttonText{
+  transform: translateX(10px);
+  transform: translateY(-10px);
+}
+.primaryButton:hover{
+  border:2px solid var(--primaryDark);
+}
 .secondaryButton {
   @apply bg-primaryLight text-primaryDark border-2 border-primaryDark px-4 py-2 rounded-md cursor-pointer transition-colors duration-300 flex justify-center items-center max-w-xs max-h-12;
 }

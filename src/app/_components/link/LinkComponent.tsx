@@ -40,14 +40,14 @@ const LinkComponent: React.FC<LinkComponentProps> = ({ href, text }) => {
     <div>
       <Link href={href}>
         <div
-          className='flex flex-col h-[1.5rem]'
+          className='flex flex-col h-[1.5rem] overflow-hidden'
           onMouseEnter={showTextAnimation}
           onMouseLeave={hideTextAnimation}
         >
-          <span ref={nav1Ref} className="text-red-500 hover:text-primaryLight cursor-pointer nav1">
+          <span ref={nav1Ref} className="cursor-pointer nav1" >
             {text}
           </span>
-          <span ref={nav2Ref} className="text-red-500 hover:text-primaryLight cursor-pointer nav2">
+          <span ref={nav2Ref} className="cursor-pointer nav2" >
             {text}
           </span>
         </div>

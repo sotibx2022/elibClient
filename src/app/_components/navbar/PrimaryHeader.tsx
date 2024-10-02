@@ -15,7 +15,9 @@ const PrimaryHeader =() =>{
         <nav className="container py-1 flex justify-between items-center">
         <div className="flex-between w-[60%]">
       {links.map((link, index) => (
-        <LinkComponent  key={index} href={link.href} text={link.text}/>
+        <li className='text-white list-none' key={index} >
+          <LinkComponent   href={link.href} text={link.text}/>
+        </li>
       ))}
     </div>
         <div className="flex justify-end w-[20%]">
