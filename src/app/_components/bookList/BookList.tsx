@@ -3,6 +3,7 @@ import SingleBook from '../singleBook/SingleBook'
 import { fetchBooks } from '.';
 import { BookDisplay } from '@/app/types/types';
 import Link from 'next/link';
+import LinkComponent from '../link/LinkComponent';
 interface APIResponse{
   message:string,
   success:boolean,
@@ -22,8 +23,8 @@ const BookList = async() => {
         <SingleBook key={book._id} {...book} />
       ))}
     </div>
-    <div className=' w-full flex justify-end'>
-    <Link href="/books" className='link'>Check All Books</Link>
+    <div className=' w-full flex justify-end text-helper text-underline'>
+      <LinkComponent href='/books' text='Check All Books'/>
     </div>
     </section>
   )

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
+import PrimaryButton from '../primaryButton/PrimaryButton'
 const SearchBar = () => {
   return (
     <div className='container flex justify-center items-center'>
@@ -12,9 +13,7 @@ const SearchBar = () => {
         id="searchInput" 
         placeholder='Book Name, Author, Keyword...'
       />
-    <button className='p-4 text-white bg-primaryDark relative'>
-      <span className='absolute top-0 left-0 bg-primaryDark hover:-top-2 hover:-left-2'>Search</span>
-    </button>
+    <PrimaryButton text="Search"/>
     </div>
   </div>
   )

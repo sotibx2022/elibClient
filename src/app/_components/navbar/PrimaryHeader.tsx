@@ -9,6 +9,7 @@ const links = [
 import Link from 'next/link'
 import React from 'react';
 import LinkComponent from '../link/LinkComponent';
+import SecondaryButton from '../secondaryButton/SecondaryButton';
 const PrimaryHeader =() =>{
   return (
       <div className="wrapper bg-primaryDark">
@@ -20,16 +21,12 @@ const PrimaryHeader =() =>{
         </li>
       ))}
     </div>
-        <div className="flex justify-end w-[20%]">
+        <div className="flex justify-end items-center h-[2rem] w-[20%] gap-1">
   <Link href="/auth/login">
-    <span className="bg-helper py-1 px-2 border-r-2 border-white text-white transition-colors duration-500 hover:bg-white hover:text-primaryDark">
-      Login
-    </span>
+    <SecondaryButton text="login"/>
   </Link>
   <Link href="/auth/signup">
-    <span className="bg-helper py-1 px-2 text-white transition-colors duration-500 hover:bg-white hover:text-primaryDark">
-      Signup
-    </span>
+    <SecondaryButton text="Signup"/>
   </Link>
 </div>
       </nav>

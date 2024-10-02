@@ -6,7 +6,7 @@ import HeroLayout from './_components/heroLayout/HeroLayout'
 const page = () => {
   return (
     <div>
-      {/* <HeroLayout/> */}
+      <HeroLayout/>
       <BookList/>
     </div>
   )
