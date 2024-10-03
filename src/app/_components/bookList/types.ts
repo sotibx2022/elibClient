@@ -23,8 +23,8 @@ export interface User{
   _id:string,
 }
 export interface BookDisplay{
-  title:string,
-  description:string,
+  title?:string,
+  description?:string,
   author:string,
   genre:string,
   coverImage:string,
@@ -33,4 +33,6 @@ export interface BookDisplay{
   createdAt?:string,
   updatedAt?:string,
   _id:string,
+  bookTitle?:string,
+  bookDescription?:string,
 }
