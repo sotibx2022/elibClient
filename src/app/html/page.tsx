@@ -2,6 +2,8 @@
 import SingleBook from '../_components/singleBook/SingleBook';
 import { useQuery } from '@tanstack/react-query';
 import { getAllHTMLBooks } from '@/helper/queryfns';
+import { gradientGenerator } from '@/helper/gradinetGenerator';
+import Loading from '../_components/loading/Loading';
 interface Note{
     _id:string,
     coverImage:string,
@@ -28,7 +30,7 @@ const Page = () => {
 };
   // If the data is still loading, show a loading message or spinner
   if (isLoading) {
-    return <div>Loading...</div>; // Replace with a loading spinner or custom component
+    return <Loading />
   }
   // If there's an error, show an error message
   if (error) {
@@ -38,8 +40,9 @@ const Page = () => {
     <div className='container flex justify-between flex-wrap'>
        {HTMLNotes.map((note: Note) => {
                 const updatedNote:Note = processedNote(note); // Process the note
+                const background = gradientGenerator()
                 return (
-                    <SingleBook key={updatedNote._id} {...updatedNote} /> // Pass the processed note as a prop
+                    <SingleBook key={updatedNote._id} {...updatedNote} background={background} /> // Pass the processed note as a prop
                 );
             })}
     </div>

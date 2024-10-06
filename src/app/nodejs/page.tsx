@@ -2,6 +2,7 @@
 import { getAllNodejssBooks } from '@/helper/queryfns';
 import SingleBook from '../_components/singleBook/SingleBook';
 import { useQuery } from '@tanstack/react-query';
+import Loading from '../_components/loading/Loading';
 interface Note{
     _id:string,
     coverImage:string,
@@ -19,7 +20,7 @@ const Page = () => {
   });
   // If the data is still loading, show a loading message or spinner
   if (isLoading) {
-    return <div>Loading...</div>; // Replace with a loading spinner or custom component
+    return <Loading/>
   }
   // If there's an error, show an error message
   if (error) {
