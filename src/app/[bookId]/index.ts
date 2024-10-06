@@ -1,13 +1,13 @@
 import axios from "axios";
-import { Book } from "../_components/bookList";
+import { BookDisplay } from "../types/types";
 export interface SingleBookResponse {
   message: string;
   status: number;
-  singleBook: Book;
+  singleBook?: BookDisplay;
 }
 export const getSingleBook = async (bookId: string): Promise<SingleBookResponse> => {
     try {
-      const response = await axios.get<SingleBookResponse>(`${process.env.API_URL}/api/books/${bookId}`);
+      const response = await axios.get<SingleBookResponse>(`http://localhost:3000/api/${bookId}`);
       return response.data;
     } catch (error) {
       // Handle the error
@@ -15,7 +15,6 @@ export const getSingleBook = async (bookId: string): Promise<SingleBookResponse>
       return {
         message: "An error occurred while fetching the book.",
         status: 500, // or some other error code
-        singleBook: {} as Book // Return a default empty book object or handle it accordingly
       };
     }
 }

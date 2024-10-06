@@ -1,36 +1,40 @@
-import React from 'react';
-import { Book } from '../_components/bookList';
+"use client"
 import { getSingleBook } from '.';
 import SingleBook from '../_components/singleBook/SingleBook';
+import { useQuery } from '@tanstack/react-query';
 interface PageProps {
     params:{
         bookId:string
     }
   bookId: string;
 }
-const Page:React.FC<PageProps> = async (props) => {
+const Page:React.FC<PageProps> =  (props) => {
     const bookId = props.params.bookId;
-  const singleBookDetails = await getSingleBook(bookId);
-  const {
-    title,
-    author,
-    description,
-    coverImage,
-    file,
-    createdAt,
-    updatedAt,
-    user
-  } = singleBookDetails.singleBook;
+    // const { data, isPending, error } = useQuery({queryKey:['product', bookId], queryFn:()=>getSingleBook(bookId)})
+    // console.log(data)
   return (
-    <div>
-      <h2>{title}</h2>
-      <p>Author: {author}</p>
-      <p>Description: {description}</p>
-      <p>Published: {new Date(createdAt).toLocaleDateString()}</p>
-      <p>Last Updated: {new Date(updatedAt).toLocaleDateString()}</p>
-      <img src={coverImage} alt={`Cover of ${title}`} style={{ width: '200px', height: 'auto' }} />
-      <p>File: <a href={file} download>Download Book</a></p>
-    </div>
+    <>
+    <h1>THis is for individual book page.</h1>
+    </>
+  //   <div>
+  //   {data?.singleBook ? (
+  //     <>
+  //       <h2>{data.singleBook.title}</h2>
+  //       <p>Author: {data.singleBook.author}</p>
+  //       <p>Description: {data.singleBook.description}</p>
+  //       <img 
+  //         src={data.singleBook.coverImage} 
+  //         alt={`Cover of ${data.singleBook.title}`} 
+  //         style={{ width: '200px', height: 'auto' }} 
+  //       />
+  //       <p>
+  //         File: <a href={data.singleBook.file} download>Download Book</a>
+  //       </p>
+  //     </>
+  //   ) : (
+  //     <p>No book data available.</p>
+  //   )}
+  // </div>
   );
 };
 export default Page;

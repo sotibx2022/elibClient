@@ -23,7 +23,7 @@ const BookList = () => {
   <section className='container'>
     <h2 className='subHeading'>Popular Books</h2>
     <div className='flex justify-between flex-wrap'>
-    {books && books.splice(0, 6).map((book: BookDisplay) => {
+    {books && books.map((book: BookDisplay) => {
         return <SingleBook key={book._id} {...book} />;
     })}
 </div>

@@ -3,14 +3,14 @@ import React from 'react';
 import LinkComponent from '../link/LinkComponent';
 const SecondaryHeader = () => {
   const items = [
-    { name: 'HTML', href: '/html' },
-    { name: 'CSS', href: '/css' },
-    { name: 'Javascript', href: '/javascript' },
-    { name: 'MongoDB', href: '/mongodb' },
-    { name: 'Nextjs', href: '/nextjs' },
-    { name: 'Nodejs', href: '/nodejs' },
-    { name: 'GSAP', href: '/gsap' },
-    { name: 'React js', href: '/react' },
+    { name: 'HTML', href: '/search?searchValue=html' },
+    { name: 'CSS', href: '/search?searchValue=css' },
+    { name: 'Javascript', href: '/search?searchValue=java' },
+    { name: 'MongoDB', href: '/search?searchValue=mongo' },
+    { name: 'Nextjs', href: '/search?searchValue=next' },
+    { name: 'Nodejs', href: '/search?searchValue=node' },
+    { name: 'GSAP', href: '/search?searchValue=gsap' },
+    { name: 'React js', href: '/search?searchValue=react' },
   ];
   return (
     <div className='border-2 border-t-primaryDark border-b-primaryDark py-1'>

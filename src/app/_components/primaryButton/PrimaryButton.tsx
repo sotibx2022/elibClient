@@ -1,5 +1,6 @@
 interface PrimaryButton{
     text:string
+    onClick?:()=>void;
 }
 const PrimaryButton:React.FC<PrimaryButton> = ({text}) => {
   return (

@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { BookDisplay } from '../bookList/types';
 import SecondaryButton from '../secondaryButton/SecondaryButton';
 const SingleBook: React.FC<BookDisplay> = ({ title, genre, author, coverImage, _id, background }) => {
-    console.log(background);
     return (
         <div className="border shadow-primaryLight mb-4 flex flex-col items-start w-[300px] h-[300px] p-2">
             <div className="imageArea relative w-full h-full">
