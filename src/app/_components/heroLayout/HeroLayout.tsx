@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Banner from '../banner/Banner';
 import BookCaurosel from '../caurosel slider/BookCaurosel';
 const HeroLayout = () => {
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [screenWidth, setScreenWidth] = useState(0);
   useEffect(() => {
     // Update the width on resize
     const handleResize = () => {

@@ -5,7 +5,10 @@ export interface SingleBookResponse {
   status: number;
   singleBook?: BookDisplay;
 }
-export const getSingleBook = async (bookId: string): Promise<SingleBookResponse> => {
+export const getSingleBook = async (queryKey:string, bookId: string): Promise<SingleBookResponse> => {
+  if (queryKey.includes('html')){
+    
+  }
     try {
       const response = await axios.get<SingleBookResponse>(`http://localhost:3000/api/${bookId}`);
       return response.data;

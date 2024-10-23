@@ -35,4 +35,5 @@ export interface BookDisplay{
   _id:string,
   bookTitle?:string,
   bookDescription?:string,
+  background?:string,
 }
