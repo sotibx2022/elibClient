@@ -87,20 +87,31 @@ export async function PUT(req: NextRequest, res: NextResponse) {
         return NextResponse.json({ message: "Error To Update Book", success: false, status: 500 });
     }
 }
-export async function GET (req: NextRequest, res: NextResponse){
-    connectToDB()
+export async function GET(req: NextRequest, res: NextResponse) {
+    connectToDB();
     try {
         const url = new URL(req.url);
-    const pathSegments = url.pathname.split("/");
-    const bookId = pathSegments.pop();
+        const pathSegments = url.pathname.split("/");
+        const bookId = pathSegments.pop();
         const singleBook = await Books.findOne({ _id: bookId });
         if (!singleBook) {
-            return NextResponse.json({status:404, message:"Book Not Found",success:false}); // Use 404 for not found
+            return NextResponse.json({
+                status: 404,
+                message: "Book Not Found",
+                success: false
+            });
         }
-        return NextResponse.json({ status: 200, message: "Single Book Found", singleBook });
+        return NextResponse.json({
+            status: 200,
+            message: "Single Book Found",
+            singleBook
+        });
     } catch (error) {
-        console.error(error); // Log the error for debugging
-        return NextResponse.json({status:500, message:"Error Fetching Book", success:false}); // Use 500 for server errors
+        return NextResponse.json({
+            status: 500,
+            message: "Error Fetching Book",
+            success: false
+        });
     }
 }
 export async function DELETE (req: NextRequest, res: NextResponse){

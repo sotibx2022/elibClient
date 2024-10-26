@@ -1,8 +1,10 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 interface SecondaryButton{
     text:string,
+    icon?:string,
 }
-const SecondaryButton:React.FC<SecondaryButton> = ({text}) => {
+const SecondaryButton:React.FC<SecondaryButton> = ({text,icon}) => {
   return (
     <div className='bg-background w-[5rem] h-full flex justify-center items-center relative z-10 group rounded-sm border-[1px] border-primaryDark'>
     <button className='relative z-20'>{text}</button>
