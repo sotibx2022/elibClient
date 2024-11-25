@@ -7,6 +7,8 @@ import Link from 'next/link';
 import SecondaryButton from '../_components/secondaryButton/SecondaryButton';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import NavBar from '../_components/navbar/NavBar';
+import Footer from '../_components/footer/Footer';
 interface PageProps {
   params: {
     bookId: string;
@@ -26,6 +28,8 @@ const Page: React.FC<PageProps> = (props) => {
   if (isLoading) return <Loading/>
   if (error) return <div>Error loading book</div>;
   return (
+    <>
+    <NavBar/>
 <div className='container flex-col md:flex-row flex justify-between items-center py-4 gap-4 min-h-[50vh]'>
   <div className="singleBookLeft w-1/2">
   <h1 className='primaryHeading mb-1'>{data?.title}</h1>
@@ -39,6 +43,8 @@ const Page: React.FC<PageProps> = (props) => {
   <p className='primaryParagraph'>{data.description}</p>
   </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 export default Page;

@@ -19,6 +19,8 @@ import Link from "next/link"
 import LoadingButton from "@/app/customUI/LoadingButton"
 import QueryProvider from "@/app/provider/QueryProvider"
 import { config } from "@/config/configuration"
+import Footer from "@/app/_components/footer/Footer"
+import NavBar from "@/app/_components/navbar/NavBar"
 const page = () => {
   const router = useRouter()
   const {register,formState:{errors} , handleSubmit} = useForm<LoginData>();
@@ -44,6 +46,7 @@ mutation.mutate(data);
   }
   return (
     <QueryProvider>
+      <NavBar/>
       <section className="flex justify-center items-center w-full h-screen">
         <Card className="mx-auto max-w-sm">
       <CardHeader>
@@ -87,6 +90,7 @@ mutation.mutate(data);
       </CardContent>
     </Card>
     </section>
+    <Footer/>
     </QueryProvider>
   )
 }

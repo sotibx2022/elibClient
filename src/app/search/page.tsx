@@ -5,6 +5,8 @@ import { BookDisplay } from "../types/types";
 import SingleBook from "../_components/singleBook/SingleBook";
 import { gradientGenerator } from "@/helper/gradinetGenerator";
 import Loading from "../_components/loading/Loading";
+import NavBar from "../_components/navbar/NavBar";
+import Footer from "../_components/footer/Footer";
 const Page = () => {
     const searchValue = (typeof window !== "undefined" && window.location.href.split("=")[1]) || '';
     const findFilteredBook = async (searchValue: string) => {
@@ -19,6 +21,8 @@ const Page = () => {
         return <Loading/>
     }
     return (
+        <>
+        <NavBar/>
             <div className="container flex flex-wrap">
             {filteredBooks && filteredBooks.length > 0 && filteredBooks.map((book: BookDisplay) => {
     const background = gradientGenerator();
@@ -29,6 +33,8 @@ const Page = () => {
     );
 })}
             </div>
+            <Footer/>
+            </>
     );
 }
 export default Page;
